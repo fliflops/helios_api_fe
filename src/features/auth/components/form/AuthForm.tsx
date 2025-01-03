@@ -23,7 +23,7 @@ interface AuthFormProps {
 }
 
 const authSchema = yup.object({
-    email: yup.string().email().required('Email is Required'),
+    username: yup.string().required('Username is Required'),
     password: yup.string().required('Password is Required')
 })
 
@@ -37,7 +37,7 @@ const AuthForm: React.FC<AuthFormProps> = () => {
     const form = useForm<authSchemaType>({
         resolver: yupResolver(authSchema),
         defaultValues: {
-            email:'',
+            username:'',
             password: ''
         }
     })
@@ -49,8 +49,10 @@ const AuthForm: React.FC<AuthFormProps> = () => {
         .unwrap()
         .then((result) => {
             dispatch(setLogin({
-                 email: result.email,
-                 token: result.token
+                 username: result.username,
+                 token: result.token,
+                 role_name: result.role.role_name,
+                 role_id: result.role.role_id
             }))
         })
     }
@@ -66,12 +68,12 @@ const AuthForm: React.FC<AuthFormProps> = () => {
                 <div className='flex flex-col gap-2'>
                     <FormField
                         control={form.control}
-                        name='email'
+                        name='username'
                         render={({field}) => (
                             <FormItem>
                                 <FormLabel>Email</FormLabel>
                                 <FormControl>
-                                    <Input className='bg-inherit' placeholder='Email' type='email' {...field}/>
+                                    <Input className='bg-inherit' placeholder='Username' {...field}/>
                                 </FormControl>
                                 <FormMessage className='text-xs'/>
                             </FormItem>

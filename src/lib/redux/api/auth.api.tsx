@@ -5,7 +5,7 @@ export const {
     useLoginMutation
 } = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        login: builder.mutation<any, {email:string; password: string;}> ({
+        login: builder.mutation<any, {username:string; password: string;}> ({
             query:(args) => ({
                 url:'/auth/login',
                 body: args,

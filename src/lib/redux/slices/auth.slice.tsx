@@ -3,12 +3,16 @@ import {RootState} from '../store'
 
 type authSliceType = {
     token: string | null,
-    email: string | null
+    username: string | null,
+    role_name: string | null,
+    role_id: string | null
 }
 
 const initialState:authSliceType = {
     token: null,
-    email: null
+    username: null,
+    role_name: null,
+    role_id: null
 }
 
 export const authSlice = createSlice({
@@ -22,7 +26,6 @@ export const authSlice = createSlice({
         setLogOut:() => initialState
     }
 })
-
 
 export const getAccessToken = (state: RootState) => state.auth.token;
 export const getSession = (state: RootState) => state.auth;
