@@ -18,11 +18,7 @@ const SidebarAdmin: React.FC<SidebarAdminProps> = () => {
                             <SidebarMenuItem key={item.module_key}>
                                 <SidebarMenuButton asChild>
                                     <NavLink to={item.route}>
-                                        {({ isActive }) => (
-                                            <div className={`flex w-full ${isActive ? 'bg-slate-500' : ''}`}>
-                                                {item.module_name}
-                                            </div>
-                                        )}
+                                        {item.module_name}
                                     </NavLink>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>

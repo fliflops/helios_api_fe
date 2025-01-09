@@ -1,13 +1,15 @@
+import type {routes} from '@/lib/redux/api/select.api';
 import APISelect from '../select/APISelect';
 import {  FieldValues, UseControllerProps, useController } from 'react-hook-form';
 import { FormControl, FormItem, FormLabel} from '../ui/form';
 
 type FormAPISelectProps<T extends FieldValues> = UseControllerProps<T> & {
+    type: routes;
     label: string;
     placeholder?: string;
 } 
 
-function FormAPISelect <T extends FieldValues>({label,placeholder,...props}: FormAPISelectProps<T>) {
+function FormAPISelect <T extends FieldValues>({type,label,placeholder,...props}: FormAPISelectProps<T>) {
     const {field,fieldState} = useController<T>({
         ...props
     })  
@@ -18,6 +20,7 @@ function FormAPISelect <T extends FieldValues>({label,placeholder,...props}: For
             </FormLabel>
             <FormControl>
                 <APISelect
+                    type={type}
                     value={field.value}
                     placeholder={placeholder}
                     onChange={(e) => field.onChange(e)}

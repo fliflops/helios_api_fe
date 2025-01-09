@@ -1,12 +1,12 @@
-
+import { useGetSelectDataQuery, routes } from '@/lib/redux/api/select.api';
 import { ActionMeta, SingleValue } from 'react-select';
 import Select from 'react-select/async'
 import {selectType} from './types'
 import React from 'react';
-import { useGetVehiclesQuery } from '@/lib/redux/api/trucker-clearance.api';
 
 
 interface APISelectProps {
+    type: routes;
     value: selectType|null;
     name?: string;
     placeholder?: string;
@@ -15,7 +15,9 @@ interface APISelectProps {
 }
 
 const APISelect: React.FC<APISelectProps> = ({isClearable=true,...props}) => {
-    const {data=[], isLoading} = useGetVehiclesQuery()
+    const {data=[], isLoading} = useGetSelectDataQuery({
+        route: props.type
+    })  
 
     const filterData = (value: string) => {
         return data.filter((i: selectType) => i.label.toLowerCase().includes(value.toLowerCase()))
@@ -46,7 +48,6 @@ const APISelect: React.FC<APISelectProps> = ({isClearable=true,...props}) => {
         placeholder={props.placeholder}
         isClearable={isClearable}
         isLoading={isLoading}
-        noOptionsMessage={() => 'Plate number is unmaintained, please notify fleet team'}
     />;
 }
 

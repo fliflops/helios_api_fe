@@ -2,6 +2,7 @@ import {createBrowserRouter} from "react-router-dom";
 import App from '@/App';
 import { Auth } from "@/features/auth";
 import Link from '@/components/Link';
+import { User } from "@/features/admin/user-management";
 
 const route = createBrowserRouter([
     {
@@ -10,7 +11,7 @@ const route = createBrowserRouter([
         children: [
             {
                 path:'/user',
-                element: <>User</>,
+                element: <User/>,
                 handle: {
                     crumb: () => (
                         <Link path='/user' label="User Management"/>
