@@ -10,6 +10,8 @@ import { useAppSelector } from '@/hooks/redux.hooks';
 import { getSession } from '@/lib/redux/slices/auth.slice';
 import { useAppDispatch } from '@/hooks/redux.hooks';
 import { setLogOut } from '@/lib/redux/slices/auth.slice';
+import useDisclosure from '@/hooks/useDisclosure';
+import UpdatePassword from '@/features/auth/components/modal/UpdatePassword';
 
 interface AccountComboBoxProps {
 
@@ -22,6 +24,7 @@ const AccountComboBox: React.FC<AccountComboBoxProps> = () => {
     } = useAppSelector(getSession);
     
     const dispatch = useAppDispatch();
+    const updatePassword = useDisclosure();
 
     const handleSignOut = () => {
         dispatch(setLogOut())
@@ -40,10 +43,11 @@ const AccountComboBox: React.FC<AccountComboBoxProps> = () => {
                         {role_name}
                     </p>
                 </div>
-                <Button variant={'outline'}>Update Password</Button>
+                <Button variant={'outline'} onClick={updatePassword.onOpen}>Update Password</Button>
                 <Button variant={'outline'} onClick={handleSignOut}>Sign Out</Button>
             </div>    
             </PopoverContent>
+            <UpdatePassword isOpen={updatePassword.open} onClose={updatePassword.onClose}/>
         </Popover>
     );
 }

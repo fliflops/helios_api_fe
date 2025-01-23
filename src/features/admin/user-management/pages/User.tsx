@@ -12,7 +12,7 @@ interface UserProps {
 const User: React.FC<UserProps> = () => {
     const createUser = useDisclosure();
     
-    return (<div className='grid gap-2' >
+    return (<div className='grid gap-2'>
          <div className='flex w-full justify-end'>
             <Button variant={'outline'} onClick={createUser.onOpen}>Create User</Button>
         </div>

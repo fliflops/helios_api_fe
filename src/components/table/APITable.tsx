@@ -16,7 +16,7 @@ function APITable <TData, TValue>({columns,route,...props}: APITableProps<TData,
         pageSize: 10
     })
 
-    const {data={}, isFetching} = useGetDataQuery({
+    const {data={}, isLoading,isFetching, refetch} = useGetDataQuery({
         route,
         result: pageSize,
         page: pageIndex,
@@ -36,7 +36,8 @@ function APITable <TData, TValue>({columns,route,...props}: APITableProps<TData,
         pageCount={data.pageCount}
         count={data.count}
         manualPagination
-        isLoading={isFetching}
+        isLoading={isFetching || isLoading}
+        refetch={refetch}
         state={{
             pagination: {
                 pageIndex,

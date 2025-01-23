@@ -14,7 +14,24 @@ type updateUser = {
     is_active?: number;
 }
 
-export const {useGenerateAppKeyMutation, useCreateUserMutation, useUpdateUserMutation} = apiSlice.injectEndpoints({
+type routes = {
+    id:string;
+    label: string;
+    route:string;
+    method: string;
+    is_authorize:string;
+    fk_role_id: string;
+}[]
+
+export const {
+    useGenerateAppKeyMutation, 
+    useCreateUserMutation, 
+    useUpdateUserMutation,
+    useUpdatePasswordMutation,
+    useGetRedisSessionQuery,
+    useGetAssignedRoutesQuery,
+    useKillSessionMutation
+} = apiSlice.injectEndpoints({
     endpoints: builder => ({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         generateAppKey: builder.mutation<any, void>({
@@ -39,6 +56,42 @@ export const {useGenerateAppKeyMutation, useCreateUserMutation, useUpdateUserMut
                 body: args,
             }),
             invalidatesTags:['Table']
+        }),
+        updatePassword: builder.mutation<void, {old_password: string; new_password: string; username: string}> ({
+            query: ({username, ...args}) => ({
+                url: '/user/password/'+username,
+                method: 'PUT',
+                body:args
+            }),
+            invalidatesTags:['Table']
+        }),
+        getRedisSession: builder.query<{
+            expiry:string;
+            isActiveSession:boolean;
+        }, void> ({
+            query: () => ({
+                url: '/user/session',
+                method:'GET',
+                
+            }),
+            providesTags:['Session']
+        }),
+        killSession: builder.mutation<void, void> ({
+            query: () => ({
+                url:'/user/session',
+                method:'DELETE',
+                
+            }),
+            invalidatesTags:['Session']
+        }),
+        getAssignedRoutes: builder.query<routes,string>({
+            query: (role_id) => ({
+                url: '/user/routes',
+                method:'GET',
+                params: {
+                    role_id
+                }
+            })
         })
 
     })

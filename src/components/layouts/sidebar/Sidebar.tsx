@@ -5,6 +5,7 @@ import {
     SidebarHeader
   } from "@/components/ui/sidebar"
 import SidebarAdmin from './SidebarAdmin';
+import SidebarHome from './SidebarHome';
 
 interface SidebarProps {
 
@@ -19,6 +20,7 @@ const AppSidebar: React.FC<SidebarProps> = () => {
                 </div>
             </SidebarHeader>
             <SidebarContent>
+                <SidebarHome/>
                 <SidebarAdmin/>
             </SidebarContent>
         </Sidebar>
